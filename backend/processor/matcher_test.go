@@ -1,10 +1,10 @@
-package scanner
+package processor
 
 import (
 	"testing"
 )
 
-// TestXSSEmptyPattern calls scanner.Matches with a empty pattern, checking
+// TestXSSEmptyPattern calls processor.Matches with a empty pattern, checking
 // for an error to be thrown.
 func TestXSSEmptyPattern(t *testing.T) {
 	sentence := "<html>Hello World!</html>"
@@ -15,7 +15,7 @@ func TestXSSEmptyPattern(t *testing.T) {
 	}
 }
 
-// TestXSSEmptySentence calls scanner.Matches with a empty sentence, checking
+// TestXSSEmptySentence calls processor.Matches with a empty sentence, checking
 // for an error to be thrown.
 func TestXSSEmptySentence(t *testing.T) {
 	pattern := `\bAlert\s*\(.*\).*`
@@ -26,7 +26,7 @@ func TestXSSEmptySentence(t *testing.T) {
 	}
 }
 
-// TestNoXSSVulnerability calls scanner.Matches with a sentence and pattern, checking
+// TestNoXSSVulnerability calls processor.Matches with a sentence and pattern, checking
 // for a valid return value.
 func TestNoXSSVulnerability(t *testing.T) {
 	pattern := `\bAlert\s*\(.*\).*`
@@ -38,7 +38,7 @@ func TestNoXSSVulnerability(t *testing.T) {
 	}
 }
 
-// TestNoXSSVulnerability calls scanner.Matches with a sentence and pattern, checking
+// TestNoXSSVulnerability calls processor.Matches with a sentence and pattern, checking
 // for a invalid return value.
 func TestXSSVulnerability(t *testing.T) {
 	pattern := `\bAlert\s*\(.*\).*`

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "name": "Cross site scripting",
+    "excludes": "",
+    "includes": "html,js",
+    "patterns": [
+      {
+        "id": "3",
+        "pattern": "\\bAlert\\s*\\(.*\\).*",
+        "excludes": "",
+        "includes": ""
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "SQL injection",
+    "excludes": ".git,.gitignore",
+    "includes": "",
+    "patterns": null
+  }
+]
