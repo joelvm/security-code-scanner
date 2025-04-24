@@ -1,6 +1,6 @@
 [
   {
-    "id": "1",
+    "id": "cm9umipf500000dw5zgehun15",
     "name": "Cross site scripting",
     "excludes": "",
     "includes": "html,js",
@@ -14,10 +14,17 @@
     ]
   },
   {
-    "id": "2",
+    "id": "cm9umjksz00010dw52ypo7t0i",
     "name": "SQL injection",
     "excludes": ".git,.gitignore",
     "includes": "",
-    "patterns": null
+    "patterns": [
+      {
+        "id": "3",
+        "pattern": "Alert",
+        "excludes": ".git,.gitignore",
+        "includes": ""
+      }
+    ]
   }
 ]
