@@ -8,7 +8,7 @@ import (
 	"scs/model"
 )
 
-func ScanFile(file string, vulnerabilityType model.VulnerabilityType, scanResults *[]model.ScanResultType) error {
+func ScanFile(file string, vulnerabilityType *model.VulnerabilityType, scanResults *[]model.ScanResultType) error {
 	conteudo, err := os.ReadFile(file)
 	if err != nil {
 		return fmt.Errorf("error reading file %s: %w", file, err)
@@ -19,13 +19,15 @@ func ScanFile(file string, vulnerabilityType model.VulnerabilityType, scanResult
 		if err != nil {
 			return err
 		} else {
-			*scanResults = append(*scanResults, model.ScanResultType{File: file, Matches: res})
+			if len(res) > 0 {
+				*scanResults = append(*scanResults, model.ScanResultType{File: file, Matches: res})
+			}
 		}
 	}
 	return nil
 }
 
-func Scan(scanPath string, vulnerabilityType model.VulnerabilityType) (scanResults []model.ScanResultType, err error) {
+func Scan(scanPath string, vulnerabilityType *model.VulnerabilityType) (scanResults []model.ScanResultType, err error) {
 
 	var res []model.ScanResultType
 
@@ -34,7 +36,7 @@ func Scan(scanPath string, vulnerabilityType model.VulnerabilityType) (scanResul
 			return err
 		}
 		if !d.IsDir() {
-			error2 := ScanFile(scanPath, vulnerabilityType, &res)
+			error2 := ScanFile(path, vulnerabilityType, &res)
 			if error2 != nil {
 				return error2
 			}

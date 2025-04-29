@@ -3,7 +3,7 @@
     "id": "cm9umipf500000dw5zgehun15",
     "name": "Cross site scripting",
     "excludes": "",
-    "includes": "html,js",
+    "includes": "",
     "patterns": [
       {
         "id": "3",
@@ -16,12 +16,12 @@
   {
     "id": "cm9umjksz00010dw52ypo7t0i",
     "name": "SQL injection",
-    "excludes": ".git,.gitignore",
+    "excludes": "",
     "includes": "",
     "patterns": [
       {
         "id": "3",
-        "pattern": "Alert",
+        "pattern": "\\bSELECT.*\\bWHERE",
         "excludes": ".git,.gitignore",
         "includes": ""
       }

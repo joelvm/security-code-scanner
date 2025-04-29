@@ -27,8 +27,8 @@ type RunScanType struct {
 
 // RunScanType represents data a type of vulnerability.
 type ScanResultType struct {
-	File    string                `json:"match"`
-	Matches []ScanResultMatchType `json:"fragments"`
+	File    string                `json:"path"`
+	Matches []ScanResultMatchType `json:"matches"`
 }
 
 type ScanResultMatchType struct {

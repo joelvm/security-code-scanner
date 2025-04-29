@@ -3,7 +3,6 @@ package processor
 import (
 	"errors"
 	"fmt"
-	"log"
 	"regexp"
 	"scs/model"
 	"strings"
@@ -20,8 +19,8 @@ func Matches(sentence string, pattern string) ([]model.ScanResultMatchType, erro
 		return nil, errors.New("empty pattern")
 	}
 
-	log.SetPrefix("tester: ")
-	log.Printf("Testing the sentence: %q against the pattern: %q", sentence, pattern)
+	//log.SetPrefix("tester: ")
+	//log.Printf("Testing the sentence: %q against the pattern: %q", sentence, pattern)
 
 	re := regexp.MustCompile(pattern)
 	actualMatch := re.FindString(sentence)
