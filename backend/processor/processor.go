@@ -5,46 +5,42 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"scs/model"
 )
 
-func ScanFile(file string) error {
+func ScanFile(file string, vulnerabilityType model.VulnerabilityType, scanResults *[]model.ScanResultType) error {
 	conteudo, err := os.ReadFile(file)
 	if err != nil {
 		return fmt.Errorf("error reading file %s: %w", file, err)
 	}
 
-	pattern := `\bAlert\s*(\(.*\))\s*;?`
-	res, err := Matches(string(conteudo), pattern)
-
-	if err != nil {
-		return err
-	}
-
-	if res {
-		return fmt.Errorf("file %s matches %q", file, pattern)
+	for _, vtp := range vulnerabilityType.Patterns {
+		res, err := Matches(string(conteudo), vtp.Pattern)
+		if err != nil {
+			return err
+		} else {
+			*scanResults = append(*scanResults, model.ScanResultType{File: file, Matches: res})
+		}
 	}
 	return nil
 }
 
-func Scan() {
-	raiz := ".." // Diretório raiz para iniciar a busca
+func Scan(scanPath string, vulnerabilityType model.VulnerabilityType) (scanResults []model.ScanResultType, err error) {
 
-	err := filepath.WalkDir(raiz, func(caminho string, d fs.DirEntry, err error) error {
+	var res []model.ScanResultType
+
+	er := filepath.WalkDir(scanPath, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
-		// && (strings.HasSuffix(caminho, ".html") || strings.HasSuffix(caminho, ".js"))
 		if !d.IsDir() {
-			if err := ScanFile(caminho); err != nil {
-				fmt.Println(err)
+			error2 := ScanFile(scanPath, vulnerabilityType, &res)
+			if error2 != nil {
+				return error2
 			}
 		}
 		return nil
 	})
 
-	if err != nil {
-		fmt.Println("Erro durante a busca:", err)
-	} else {
-		fmt.Println("Verificação concluída. Nenhuma instrução Alert() encontrada nos arquivos .html e .js (palavra inteira).")
-	}
+	return res, er
 }
